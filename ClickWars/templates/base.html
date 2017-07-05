@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+<head>
+	{% block stylesheet %}
+
+	{% endblock %}
+	<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+	<meta charset="utf-8"/>
+	<title>{% block title %}Biodiv map{% endblock %}</title>
+</head>
+<body>
+	<header><span id="clickWarsHeader">Biodiv map</span></header>
+
+	<!--Div général contenant tous les autres div -->
+	<div id="generalDiv">
+		{% block general %}
+
+		{% endblock %}
+	</div>
+
+	<!--Div permettant de véhiculer les scripts -->
+	<div id="scriptDiv">
+		{% block script %}
+		{% endblock %}
+	</div>
+
+
+	<footer><span id="clickWarsFooter">&copy; Biodiv map</span></footer>
+
+</body>
+</html>

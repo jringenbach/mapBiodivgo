@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'map/css/pod.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
+	<script type="text/javascript" src="{% static 'js/leaflet/leaflet.js' %}"></script>
+
+	<!--Plugin permettant de créer un tiles raster layer qui a la forme d'un polygone -->
+	<script type="text/javascript" src="{% static 'js/BoundaryCanvas.js' %}"></script>
+{% endblock %}
+
+{% block title %}Map : ClickWars {% endblock %}
+
+{% block general %}
+	<!--Bloc contenant les liens pour naviguer sur le site -->
+	<div id="navigationDiv">
+ 
+	</div>
+
+	<!--Bloc contenant la carte -->
+	<div id="mapDiv"></div>
+
+	<!--Bloc contenant les scores -->
+	<div id="scoreDiv"></div>
+
+{% endblock %}
+
+{% block script %}
+	<!--Javascript executant le code élaborant les spécificités de la carte -->
+	<script type="text/javascript" src="{% static 'map/js/pod.js' %}"></script>
+
+{% endblock %}
+

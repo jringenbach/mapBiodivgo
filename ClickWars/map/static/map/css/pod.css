@@ -1,0 +1,39 @@
+body{
+    height: 100%;
+    width: 100%;
+}
+
+/*Div général contenant tous les autres div */
+#generalDiv{
+    float: left;
+    height: 80%;
+    width: 100%;
+}
+
+html{
+    height: 1024px;
+    width: 1280px;
+}
+
+/* Div contenant la carte leaflet*/
+#mapDiv{
+    float: left;
+    height: 70%;
+    width: 70%;
+}
+
+/*Div contenant le menu de navigation */
+#navigationDiv{
+    background-color: #5EC4CD;
+    float: left;
+    height: 100%;
+    width : 15%;
+}
+
+/*Div contenant les scores des pays */
+#scoreDiv{
+    background-color: #5EC4CD;
+    float: left;
+    height: 100%;
+    width : 15%;
+}

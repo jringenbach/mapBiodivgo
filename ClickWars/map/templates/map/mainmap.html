@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'map/css/mainmap.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
+	<script type="text/javascript" src="{% static 'js/leaflet/leaflet.js' %}"></script>
+
+	<!--Plugin permettant de créer un tiles raster layer qui a la forme d'un polygone -->
+	<script type="text/javascript" src="{% static 'js/BoundaryCanvas.js' %}"></script>
+{% endblock %}
+
+{% block title %}Map : ClickWars {% endblock %}
+
+{% block general %}
+	<!--Bloc contenant les liens pour naviguer sur le site -->
+	<div id="navigationDiv">
+		 <button type="button" id="loadTilesButton">Charger toutes les tuiles</button> 
+	</div>
+
+	<!--Bloc contenant la carte -->
+	<div id="mapDiv"></div>
+
+	<!--Bloc contenant les scores -->
+	<div id="scoreDiv"></div>
+
+{% endblock %}
+
+{% block script %}
+
+	<!--Javascript executant le code élaborant les spécificités de la carte -->
+	<script type="text/javascript" src="{% static 'map/js/test/cascade.js' %}"></script>
+
+	<!--Javascript permettant d'afficher des animations sur la page web -->
+	<script type="text/javascript" src="{% static 'map/js/mainmap.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'map/js/mainmaptilesurl.js'%}"></script>
+
+	<!--Javascript permettant d'afficher des animations sur la page web -->
+	<script type="text/javascript" src="{% static 'map/js/mainmapevent.js' %}"></script>
+{% endblock %}

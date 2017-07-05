@@ -1,0 +1,96 @@
+body{
+    overflow-x: hidden; /*On cache la scrollbar de l'axe x */
+    overflow-y: hidden; /* On cache la scrollbar de l'axe y */
+    height: 95%;
+    width: 99%;
+}
+
+/*Bouton qui coche/décoche toutes les checkbox */
+.buttonCocheClass{
+    background-color : #0a693f;
+    color : white;
+    margin-bottom : 1%;
+    margin-left : 25%;
+    margin-top : 1%;
+    text-align : center;
+    width : 50%;
+}
+.checkboxDivClass{
+    width : 100%;
+}
+
+/*Div général contenant tous les autres div */
+#generalDiv{
+    float: left;
+    height: 80%;
+    width: 100%;
+}
+
+header{
+    background-color : #015651;
+}
+
+html{
+    background-color: #015651;
+    height: 100%;
+    overflow-x: hidden; 
+    overflow-y: hidden; 
+    width: 100%;
+}
+
+.labelOptionsClass{
+    color: white;
+    font-size: 13px;
+}
+
+/* Div contenant la carte leaflet*/
+#mapDiv{
+    float: left;
+    height: 100%;
+    width: 80%;
+}
+
+/*Titre du bloc div des options */
+.h2PanelClass{
+    background-color : #0a693f;
+    border : 1px solid green;
+    border-radius: 2px;
+    color : white;
+    font-weight: bold;
+    font-size : 16px;
+    margin-top : 0;
+    padding-bottom : 3px;
+    padding-top : 3px;
+    text-align: center;
+    width : 99%;
+}
+
+.panelDivClass{
+    background-color : #2B9C6A;
+    border : 1px solid #FAF8FB;
+    border-radius : 2px;
+    margin-left: 5px;
+    padding-bottom: 5px;
+}
+
+/*Div contenant les scores des pays */
+#rightDiv{
+    background-color: #015651;
+    float: left;
+    height: 100%;
+    width : 20%;
+}
+
+#seasonDivId{
+    margin-top : 5%;
+}
+
+/*Design spécifique au bouton cochant toutes les checkbox */
+#toutCocherButton{
+    margin-top : 5%;
+}
+
+/*Design spécifique au bouton décochant toutes les checkbox */
+#toutDecocherButton{
+    margin-bottom : 5%;
+}

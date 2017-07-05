@@ -1,0 +1,33 @@
+#clickWarsFooter{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#clickWarsHeader{
+    display : table-cell;
+    vertical-align: middle;
+}
+
+footer{
+    background-color: #015651;
+    color: white;
+    display: table;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+    text-align: center;
+    width:100%;
+}
+
+header{
+    background-color : #015651;
+    color: white;
+    display: table;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    font-weight : bold;
+    height: 30px;
+    text-align: center;
+    width: 100%;
+}
