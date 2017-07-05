@@ -107,36 +107,36 @@ checkboxPopUpChallenge.addEventListener("change", function(e){
  * Evènement lié quand la checkbox winter est cochée/décochée
  */
 checkboxWinter.addEventListener("change", function(e){
-    var circleLayers = createCircleLayers(tableauDeChallenges);
-    addCircleLayersToMap(circleLayers, map);
+    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
 });
 
 /**
  * Evènement lié quand la checkbox spring est cochée/décochée
  */
 checkboxSpring.addEventListener("change", function(e){
-    displayCircleLayers(tableauDeChallenges, circleLayers, map);
+    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
 });
 
 /**
  * Evènement lié quand la checkbox summer est cochée/décochée
  */
 checkboxSummer.addEventListener("change", function(e){
-    displayCircleLayers(tableauDeChallenges, circleLayers, map);
+    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
 });
 
 /**
  * Evènement lié quand la checkbox autumn est cochée/décochée
  */
 checkboxAutumn.addEventListener("change", function(e){
-    displayCircleLayers(tableauDeChallenges, circleLayers, map);
+    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
 });
 
 /**
  * Coche toutes les checkbox du menu des options
  */
 buttonToutCocher.addEventListener("click", function(e){
-    displayCircleLayers(tableauDeChallenges, circleLayers, map);
+    checkOrUncheckAllCheckBox(checkboxArray, true);
+    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
 });
 
 /**
@@ -146,7 +146,7 @@ buttonToutDecocher.addEventListener("click", function(e){
     checkOrUncheckAllCheckBox(checkboxArray, false);
     removeOrAddPlayersMarker(playersTable, map);
     checkOrUncheckCheckBoxPopUpChallenge();
-    displayCircleLayers(tableauDeChallenges, circleLayers, map);
+    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
 })
 
 
@@ -316,13 +316,14 @@ function createCircleLayers(challengesTab){
 
     for(var i=0; i < challengesTab.length; i++){
         if(challengesTab[i].circle != null &&(
-           (checkboxWinter.checked && checkboxWinter.checked == challengesTab[i].winter) ||
-           (checkboxSpring.checked && checkboxSpring.checked == challengesTab[i].spring) ||
-           (checkboxSummer.checked && checkboxSummer.checked == challengesTab[i].summer) ||
-           (checkboxAutumn.checked && checkboxAutumun.checked == challengesTab[i].autumn))){
+           (checkboxWinter.checked == true && checkboxWinter.checked == challengesTab[i].winter) ||
+           (checkboxSpring.checked == true && checkboxSpring.checked == challengesTab[i].spring) ||
+           (checkboxSummer.checked == true && checkboxSummer.checked == challengesTab[i].summer) ||
+           (checkboxAutumn.checked == true && checkboxAutumn.checked == challengesTab[i].autumn))){
                 circlesLayers.push(challengesTab[i].circle); //Si la propriété cercle n'est pas nulle, on l'ajoute au tableau
         }
     }
+
     return circlesLayers;
 }
 
@@ -333,15 +334,12 @@ function createCircleLayers(challengesTab){
  * @param {*La carte} map 
  */
 function displayCircleLayers(tableauDeChallenges, circleLayers, map, markerPlayer){
-    console.log("circleLayers : "+circleLayers);
-    if(circleLayers != null) removeAllCircleLayersFromMap(circleLayers, map);
-    console.log("après le if circlelayers différent de null");
+    console.log("display : "+circleLayers.length);
+    if(circleLayers.length > 0) removeAllCircleLayersFromMap(circleLayers, map);
     circleLayers = createCircleLayers(tableauDeChallenges);
-    console.log("après create circles");
+    console.log(circleLayers);
     addCircleLayersToMap(circleLayers, map);
-    console.log("après add circle to map");
     instanciateColorPolygons(circleLayers, markerPlayer);
-    console.log("après instanciation des couleurs");
     return circleLayers;
 }
 
@@ -513,11 +511,9 @@ function playerIsNearAnOtherPlayer(player, playersTable){
  * @param {* La carte} map 
  */
 function removeAllCircleLayersFromMap(circleLayers, map){
-    console.log("remove circles");
-    console.log("circlelayers length : "+circleLayers.length);
     for(var i=0; i < circleLayers.length; i++){
         map.removeLayer(circleLayers[i]);
-        console.log("après le remove circles");
+        console.log("remove circles i : "+i);
     }
 }
 

@@ -183,7 +183,6 @@ var checkboxAutumn = document.getElementById("autumnCheckBox");
 var buttonToutCocher = document.getElementById("toutCocherButton");
 var buttonToutDecocher = document.getElementById("toutDecocherButton");
 
-console.log("winter : "+checkboxWinter);
 //Ajout des checkbox dans un tableau
 var checkboxArray = new Array();
 checkboxArray.push(checkboxNearestPlayers);
