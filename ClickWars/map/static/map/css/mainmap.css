@@ -1,13 +1,12 @@
 body{
-    overflow-x: hidden; /*On cache la scrollbar de l'axe x */
-    overflow-y: hidden; /* On cache la scrollbar de l'axe y */
-    height: 95%;
+    height: 100%;
     width: 99%;
 }
 
 /*Bouton qui coche/décoche toutes les checkbox */
 .buttonCocheClass{
     background-color : #0a693f;
+    border-radius : 5px;
     color : white;
     margin-bottom : 1%;
     margin-left : 25%;
@@ -33,8 +32,6 @@ header{
 html{
     background-color: #015651;
     height: 100%;
-    overflow-x: hidden; 
-    overflow-y: hidden; 
     width: 100%;
 }
 
@@ -46,7 +43,7 @@ html{
 /* Div contenant la carte leaflet*/
 #mapDiv{
     float: left;
-    height: 100%;
+    height: 95%;
     width: 80%;
 }
 
@@ -54,7 +51,7 @@ html{
 .h2PanelClass{
     background-color : #0a693f;
     border : 1px solid green;
-    border-radius: 2px;
+    border-radius: 10px;
     color : white;
     font-weight: bold;
     font-size : 16px;
@@ -68,7 +65,7 @@ html{
 .panelDivClass{
     background-color : #2B9C6A;
     border : 1px solid #FAF8FB;
-    border-radius : 2px;
+    border-radius : 10px;
     margin-left: 5px;
     padding-bottom: 5px;
 }
@@ -83,6 +80,16 @@ html{
 
 #seasonDivId{
     margin-top : 5%;
+}
+
+#statistiquesDiv{
+    background-color : #2B9C6A;
+    border : 1px solid #FAF8FB;
+    border-radius : 10px;
+    float : left;
+    height : 40%;
+    margin-bottom : 3%;
+    width : 99%;
 }
 
 /*Design spécifique au bouton cochant toutes les checkbox */

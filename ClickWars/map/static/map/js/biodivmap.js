@@ -38,30 +38,32 @@ document.addEventListener('keydown', function(e){
     var ampleurDuDeplacement = 0.001;
     var insideAChallengeZone;
 
+    console.log(e.keyCode);
+
     //Si la touche appuyée concerne un déplacement
-    if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40){
+    if(e.keyCode == 68 || e.keyCode == 90 || e.keyCode == 83 || e.keyCode == 81){
         switch(e.keyCode){
 
             //Left keyTouch
-            case 37:
+            case 81:
                 latitude = joueur.marker.getLatLng().lat;
                 longitude = joueur.marker.getLatLng().lng-Math.abs(ampleurDuDeplacement);
                 break;
             
             //Up keyTouch
-            case 38:
+            case 90:
                 latitude = joueur.marker.getLatLng().lat+Math.abs(ampleurDuDeplacement);
                 longitude = joueur.marker.getLatLng().lng;
             break;
 
             //Right keyTouch
-            case 39:
+            case 68:
                 latitude = joueur.marker.getLatLng().lat;
                 longitude = joueur.marker.getLatLng().lng+Math.abs(ampleurDuDeplacement);
                 break;
 
             //Down keyTouch
-            case 40:
+            case 83:
                 latitude = joueur.marker.getLatLng().lat-Math.abs(ampleurDuDeplacement);
                 longitude = joueur.marker.getLatLng().lng;
                 break;
