@@ -255,3 +255,4 @@ checkboxArray.push(checkboxAutumn);
 var textboxLatMainCharacter = document.getElementById("textBoxLatMainCharacter");
 var textboxLonMainCharacter = document.getElementById("textBoxLonMainCharacter");
 var textboxVitMainCharacter = document.getElementById("textBoxVitMainCharacter");
+var textboxZoomLevel = document.getElementById("zoomLevelInput");

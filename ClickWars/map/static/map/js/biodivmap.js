@@ -27,6 +27,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/foxof/cj4jxxmvx7gwp2rs5571l8z3o/ti
 var ampleurDuDeplacement = 0.001; //Ampleur du déplacement du joueur
 textboxVitMainCharacter.value = ampleurDuDeplacement;
 joueur.marker.addTo(map);
+textboxZoomLevel.value = map.getZoom();
 textBoxCoordinatesMainCharacter(joueur.marker);
 removeOrAddPlayersMarker(playersTable, map);
 
@@ -159,14 +160,27 @@ checkboxAutumn.addEventListener("change", function(e){
  */
 map.addEventListener("zoomstart", function(e){
     var icon;
-    console.log(map.getZoom());
+
     for(var i = 0; i < challengeDisplayed.length; i++){
+        //On retire un à un les marqueurs des défis de la carte
         map.removeLayer(challengeDisplayed[i].marker);
+
+        //Pour un défi, on récupère son icone suivant le niveau de zoom de la carte
         icon = getIconDependingOnZoomLevel(map.getZoom(), challengeDisplayed[i].typeChallenge.typeName);
+
+        //On affiche l'icone
         challengeDisplayed[i].marker.setIcon(icon);
         challengeDisplayed[i].marker.addTo(map);
     }
 
+});
+
+/**
+ * Evènement quand l'animation d'un zoom se termine
+ */
+map.addEventListener("zoomend", function(e){
+    //Dans les statistiques, on met à jour le niveau de zoom
+    textboxZoomLevel.value = map.getZoom();
 });
 
 /**

@@ -118,6 +118,10 @@ html{
     width : 99%;
 }
 
+.statLigne{
+    margin-top : 10px;
+}
+
 /*textbox affichant la latitude du personnage principal */
 #textBoxLatMainCharacter{
     width : 150px;
@@ -154,4 +158,8 @@ html{
 /*Permet de centrer les titres des sous-sections de "Données et Statistiques" */
 .wrapper{
     text-align : center;
+}
+
+#zoomLevelInput{
+    width : 25px;
 }
