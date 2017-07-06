@@ -211,6 +211,17 @@ function addPolygonLayersToMap(polygonsLayers, map){
 }
 
 /**
+ * Ajoute les marqueurs relatifs au type de défi
+ * @param {*Tableau contenant les défis à afficher selon les options choisies} challengeDisplayed 
+ * @param {*La carte } map 
+ */
+function addTypeChallengeMarkerToMap(challengeDisplayed, map){
+    for(var i=0; i<challengeDisplayed.length; i++){
+        challengeDisplayed[i].marker.addTo(map);
+    }
+}
+
+/**
  * Calcul le challenge le plus prôche
  * @param {*Le joueur principal} player 
  * @param {*Le tableau contenant les challenges} challengeArray 
@@ -364,6 +375,9 @@ function displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, mark
 
     //On ajoute les zones de défi à la carte
     addChallengeZoneToMap(challengeDisplayed, map);
+
+    //On ajoute les marqueurs relatifs au type de défi
+    addTypeChallengeMarkerToMap(challengeDisplayed, map);
 
     //On leur attribue une couleur
     instanciateColorPolygons(challengeDisplayed, markerPlayer);
@@ -538,7 +552,11 @@ function playerIsNearAnOtherPlayer(player, playersTable){
  */
 function removeAllChallengeZoneFromMap(challengeDisplayed, map){
     for(var i=0; i < challengeDisplayed.length; i++){
+        //On retire le cercle représentant la zone de défi
         map.removeLayer(challengeDisplayed[i].circle);
+
+        //On retire l'icone représentant le type du défi
+        map.removeLayer(challengeDisplayed[i].marker);
     }
 }
 

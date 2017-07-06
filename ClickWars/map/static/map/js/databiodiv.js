@@ -1,39 +1,9 @@
 /*-----------------------------------------------------------------------------------------------
-                                        INSTANCIATION DES ICONES POUR LES TYPES DE DEFIS
--------------------------------------------------------------------------------------------------*/
-
-var animalIcon = L.icon({
-    iconUrl: '../static/map/img/animal.png',
-    iconSize:     [36, 36], // size of the icon
-    iconAnchor:   [18, 36], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
-});
-
-var flowerIcon = L.icon({
-    iconUrl: '../static/map/img/flower.png',
-    iconSize:     [36, 36], // size of the icon
-    iconAnchor:   [18, 36], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
-});
-
-var insectIcon = L.icon({
-    iconUrl: '../static/map/img/insect.png',
-    iconSize:     [36, 36], // size of the icon
-    iconAnchor:   [18, 36], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
-});
-
-//Création d'un marqueur que l'on associe à l'icône du type de défi
-var markerAnimal = L.marker([0.0 , 0.0], {icon: animalIcon});
-var markerFlower = L.marker([0.0, 0.0], {icon: flowerIcon});
-var markerInsect = L.marker([0.0, 0.0], {icon: insectIcon});
-
-/*-----------------------------------------------------------------------------------------------
                                         INSTANCIATION DES TYPES DE DEFIS
 -------------------------------------------------------------------------------------------------*/
-var insectType = new typeChallenge(1, "insecte", markerFlower);
-var flowerType = new typeChallenge(2, "flore", markerFlower);
-var animalType = new typeChallenge(3, "animal", markerAnimal);
+var insectType = new typeChallenge(1, "insecte");
+var flowerType = new typeChallenge(2, "flore");
+var animalType = new typeChallenge(3, "animal");
 
 /*-----------------------------------------------------------------------------------------------
                                         INSTANCIATION DES CHALLENGES
@@ -91,7 +61,8 @@ var lunelChallenge = new Challenge(
     false,
     true,
     false,
-    false
+    false,
+    animalType
 );
 
 var mirevalChallenge = new Challenge(
@@ -123,7 +94,8 @@ var palavasChallenge = new Challenge(
     false,
     false,
     false,
-    true
+    true,
+    flowerType
 );
 
 var perolsChallenge = new Challenge(
@@ -181,7 +153,6 @@ var villeneuveMagueloneChallenge = new Challenge(
     insectType
 );
 
-console.log(tableauDeChallenges);
 
 //Ancienne méthode où je poussais les éléments dans le tableau un à un
 /*
