@@ -159,20 +159,7 @@ checkboxAutumn.addEventListener("change", function(e){
  * Evènement se déclenchant quand le niveau de zoom change. On va redimensionner les icones des types de défi.
  */
 map.addEventListener("zoomstart", function(e){
-    var icon;
-
-    for(var i = 0; i < challengeDisplayed.length; i++){
-        //On retire un à un les marqueurs des défis de la carte
-        map.removeLayer(challengeDisplayed[i].marker);
-
-        //Pour un défi, on récupère son icone suivant le niveau de zoom de la carte
-        icon = getIconDependingOnZoomLevel(map.getZoom(), challengeDisplayed[i].typeChallenge.typeName);
-
-        //On affiche l'icone
-        challengeDisplayed[i].marker.setIcon(icon);
-        challengeDisplayed[i].marker.addTo(map);
-    }
-
+    changeIconChallengeDependingOnZoomLevel();
 });
 
 /**
@@ -199,6 +186,31 @@ textboxVitMainCharacter.addEventListener("change", function(e){
     }
 
 });
+
+/**
+ * évènement permettant de modifier le niveau de zoom de la carte à partir de la textbox
+ */
+textboxZoomLevel.addEventListener("change", function(e){
+    var zoomLevel = textboxZoomLevel.value;
+
+    //Si le niveau de zoom tapé dans la textbox est inférieur à 21 et supérieur à 0
+    if(zoomLevel < 19 && zoomLevel > 0){
+        textboxZoomLevel.style.borderColor = "#015651";
+
+        map.setZoom(zoomLevel);
+
+        //On change les icones des défis suivant le niveau de zoom choisi
+        changeIconChallengeDependingOnZoomLevel();
+
+        //On recentre la carte sur le marqueur du joueur principal
+        map.setView(joueur.marker.getLatLng(), map.getZoom());
+    }
+
+    else{
+        //Si le niveau de zoom est incorrect, on change la couleur du contour de la textbox
+        textboxZoomLevel.style.borderColor = "red";
+    }
+})
 
 
 /*-----------------------------------------------------------------------------------------------
@@ -316,6 +328,25 @@ function challengePopUp(circleNumber, challengeDisplayed){
 function changeColorCircle(circleNumber, challengeDisplayed){
 
         challengeDisplayed[circleNumber].circle.setStyle(styleMarkerIsInside);
+}
+
+/**
+ * Change l'icone des challenges (taille, point d'ancrage) suivant le niveau de zoom
+ */
+function changeIconChallengeDependingOnZoomLevel(){
+    var icon;
+
+    for(var i = 0; i < challengeDisplayed.length; i++){
+        //On retire un à un les marqueurs des défis de la carte
+        map.removeLayer(challengeDisplayed[i].marker);
+
+        //Pour un défi, on récupère son icone suivant le niveau de zoom de la carte
+        icon = getIconDependingOnZoomLevel(map.getZoom(), challengeDisplayed[i].typeChallenge.typeName);
+
+        //On affiche l'icone
+        challengeDisplayed[i].marker.setIcon(icon);
+        challengeDisplayed[i].marker.addTo(map);
+    }
 }
 
 /**
