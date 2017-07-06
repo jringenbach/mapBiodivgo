@@ -222,8 +222,9 @@ playersTable.push(luffy);
 --------------------------------------------------------------------------------------------------------------*/
 
 //Instanciation des boutons
-var buttonToutCocher = document.getElementById("toutCocherButton");
-var buttonToutDecocher = document.getElementById("toutDecocherButton");
+var buttonToutCocher = document.getElementById("checkAllButton");
+var buttonToutDecocher = document.getElementById("uncheckAllButton");
+var buttonCentrerVue = document.getElementById("centerViewButton");
 
 //-------------
 

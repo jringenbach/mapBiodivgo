@@ -14,6 +14,17 @@ body{
     text-align : center;
     width : 50%;
 }
+
+/*Bouton qui permet de recentrer la vue sur le joueur */
+#centerViewButton{
+    margin-bottom : 5%;
+}
+
+/*Design spécifique au bouton cochant toutes les checkbox */
+#checkAllButton{
+    margin-top : 5%;
+}
+
 .checkboxDivClass{
     width : 100%;
 }
@@ -145,14 +156,9 @@ html{
     width : 80px;
 }
 
-/*Design spécifique au bouton cochant toutes les checkbox */
-#toutCocherButton{
-    margin-top : 5%;
-}
-
 /*Design spécifique au bouton décochant toutes les checkbox */
-#toutDecocherButton{
-    margin-bottom : 5%;
+#uncheckAllButton{
+    margin-bottom : 1%;
 }
 
 /*Permet de centrer les titres des sous-sections de "Données et Statistiques" */

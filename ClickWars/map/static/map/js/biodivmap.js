@@ -93,6 +93,13 @@ document.addEventListener('keydown', function(e){
 });
 
 /**
+ * Evènement qui permet de recentrer la vue sur le joueur
+ */
+buttonCentrerVue.addEventListener("click", function(e){
+    map.setView(joueur.marker.getLatLng(), map.getZoom());
+});
+
+/**
  * Coche toutes les checkbox du menu des options
  */
 buttonToutCocher.addEventListener("click", function(e){
