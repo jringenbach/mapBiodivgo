@@ -171,6 +171,49 @@ map.addEventListener("zoomend", function(e){
 });
 
 /**
+ * Evènement permettant de déplacer le personnage selon la latitude saisie dans la textbox
+ */
+textboxLatMainCharacter.addEventListener("change", function(e){
+    changeCoordinatesMainCharacter(e);
+});
+
+/**
+ * Evènement permettant de déplacer le personnage selon la longitude saisie dans la textbox
+ */
+textboxLonMainCharacter.addEventListener("change", function(e){
+    changeCoordinatesMainCharacter(e);
+});
+
+/**
+ * Change les coordonnées du marqueur du joueur suivant la textbox qui a déclenché l'évènement
+ * @param {*Objet qui a déclenché l'évènement} triggerEvent 
+ */
+function changeCoordinatesMainCharacter(triggerEvent){
+    var newCoordinates, latitude, longitude;
+
+    //Si les valeurs entrées dans les textbox ne sont pas nulles
+    if(textboxLatMainCharacter.value != "" && textboxLonMainCharacter.value != ""){
+        //Si c'est la longitude qui a été modifiée
+        if(triggerEvent.target.id == textboxLonMainCharacter.id){
+            newCoordinates = textboxLonMainCharacter.value;
+            latitude = textboxLatMainCharacter.value;
+            joueur.marker.setLatLng([latitude, newCoordinates]);
+
+        }
+
+        //Sinon c'est que c'est la latitude
+        else if(triggerEvent.target.id == textboxLatMainCharacter.id){
+            newCoordinates = textboxLatMainCharacter.value;
+            longitude = textboxLonMainCharacter.value;
+            joueur.marker.setLatLng([newCoordinates, longitude]);
+        }
+
+        //On recentre la vue sur le joueur
+        map.setView(joueur.marker.getLatLng(), map.getZoom());
+    }
+}
+
+/**
  * textbox permettant de modifier la vitesse du personnage principal sur la carte
  */
 textboxVitMainCharacter.addEventListener("change", function(e){
