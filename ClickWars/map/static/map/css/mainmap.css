@@ -120,12 +120,25 @@ html{
 
 /*textbox affichant la latitude du personnage principal */
 #textBoxLatMainCharacter{
-    width : 140px;
+    width : 150px;
 }
 
 /*textbox affichant la longitude du personnage principal */
 #textBoxLonMainCharacter{
-    width : 140px;
+    width : 150px;
+}
+
+/*Style commun à toutes les textbox affichant des statistiques */
+.textBoxStatClass{
+    border : solid 1px #015651;
+    border-radius : 7px;
+    height : 18px;
+    padding-left : 7px;
+}
+
+/*textbox permettant de modifier la vitesse du personnage principal */
+#textBoxVitMainCharacter{
+    width : 80px;
 }
 
 /*Design spécifique au bouton cochant toutes les checkbox */

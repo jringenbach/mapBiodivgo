@@ -23,12 +23,15 @@ L.tileLayer('https://api.mapbox.com/styles/v1/foxof/cj4jxxmvx7gwp2rs5571l8z3o/ti
 
 
 //On ajoute le marker du joueur à la carte, ainsi que celui de tous les autres joueurs
+
+var ampleurDuDeplacement = 0.001; //Ampleur du déplacement du joueur
+textboxVitMainCharacter.value = ampleurDuDeplacement;
 joueur.marker.addTo(map);
 textBoxCoordinatesMainCharacter(joueur.marker);
 removeOrAddPlayersMarker(playersTable, map);
 
-var circleLayers = new Array();
-circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+var challengeDisplayed = new Array();
+challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 
 //-------------------------------------------------------------------------------------------
 
@@ -36,7 +39,6 @@ circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueu
                                             EVENEMENTS
 -------------------------------------------------------------------------------------------------*/
 document.addEventListener('keydown', function(e){
-    var ampleurDuDeplacement = 0.001;
     var insideAChallengeZone;
 
     //Si la touche appuyée concerne un déplacement
@@ -73,7 +75,7 @@ document.addEventListener('keydown', function(e){
         //de lui
         joueur.marker.setLatLng([latitude, longitude]);
         textBoxCoordinatesMainCharacter(joueur.marker);
-        insideAChallengeZone = markerIsInsideChallengeZone(joueur.marker, circleLayers);
+        insideAChallengeZone = markerIsInsideChallengeZone(joueur.marker, challengeDisplayed);
 
         //si le joueur a coché la checkbox pour voir les joueurs les plus proches, alors on calcule la distance des joueurs les plus proches
         if(checkboxNearestPlayers.checked){
@@ -109,28 +111,28 @@ checkboxPopUpChallenge.addEventListener("change", function(e){
  * Evènement lié quand la checkbox winter est cochée/décochée
  */
 checkboxWinter.addEventListener("change", function(e){
-    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 });
 
 /**
  * Evènement lié quand la checkbox spring est cochée/décochée
  */
 checkboxSpring.addEventListener("change", function(e){
-    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 });
 
 /**
  * Evènement lié quand la checkbox summer est cochée/décochée
  */
 checkboxSummer.addEventListener("change", function(e){
-    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 });
 
 /**
  * Evènement lié quand la checkbox autumn est cochée/décochée
  */
 checkboxAutumn.addEventListener("change", function(e){
-    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 });
 
 /**
@@ -138,7 +140,8 @@ checkboxAutumn.addEventListener("change", function(e){
  */
 buttonToutCocher.addEventListener("click", function(e){
     checkOrUncheckAllCheckBox(checkboxArray, true);
-    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+    removeOrAddPlayersMarker(playersTable, map);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 });
 
 /**
@@ -148,8 +151,25 @@ buttonToutDecocher.addEventListener("click", function(e){
     checkOrUncheckAllCheckBox(checkboxArray, false);
     removeOrAddPlayersMarker(playersTable, map);
     checkOrUncheckCheckBoxPopUpChallenge();
-    circleLayers = displayCircleLayers(tableauDeChallenges, circleLayers, map, joueur.marker);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
 })
+
+/**
+ * textbox permettant de modifier la vitesse du personnage principal sur la carte
+ */
+textboxVitMainCharacter.addEventListener("change", function(e){
+
+    //Si l'utilisateur essaie d'entrer une vitesse négative
+    if(textboxVitMainCharacter.value <= 0 ){
+        textboxVitMainCharacter.style.borderColor = "red";
+    }
+
+    else{
+        textboxVitMainCharacter.style.borderColor = "#015651";
+        ampleurDuDeplacement = textboxVitMainCharacter.value;
+    }
+
+});
 
 
 /*-----------------------------------------------------------------------------------------------
@@ -158,14 +178,14 @@ buttonToutDecocher.addEventListener("click", function(e){
 
 /**
  * Ajoute à la carte les zones de défi dont la zone de défi est un cercle
- * @param {*Tableau de couches de défis avec une zone géographique en cercle} circlesLayers 
+ * @param {*Tableau contenant les challenges à afficher sur la carte} challengeDisplayed
  * @param {*La carte} map 
  */
-function addCircleLayersToMap(circlesLayers, map){
+function addChallengeZoneToMap(challengeDisplayed, map){
 
-    //On parcourt le tableau de couches pour ajouter les couches une à une à la carte
-    for(var i=0; i < circlesLayers.length; i++){
-        circlesLayers[i].addTo(map);
+    //On parcourt le tableau de challenge à afficher pour ajouter les couches une à une à la carte
+    for(var i=0; i < challengeDisplayed.length; i++){
+        challengeDisplayed[i].circle.addTo(map);
     }
 }
 
@@ -236,13 +256,13 @@ function calculNearestChallenge(player, challengeArray){
 /**
  * Ajoute un popup au marqueur avec le nom du défi quand le joueur est dans une zone de défi
  * @param {*Indice du tableau contenant les cercles des zones de défi} circleNumber
- * @param {*Tableau contenant les cercles des zones de défi} circlesLayers
+ * @param {*Tableau contenant les défis qui vont être affichés} challengeDisplayed
  */
-function challengePopUp(circleNumber, circlesLayers){
+function challengePopUp(circleNumber, challengeDisplayed){
     var messagePopUp;
 
     //Contenu du popup qui s'affiche au-dessus du joueur.
-    messagePopUp = "Défi : "+ tableauDeChallenges[circleNumber]["challengeName"];
+    messagePopUp = "Défi : "+ challengeDisplayed[circleNumber]["challengeName"];
     joueur.marker.bindPopup(messagePopUp).openPopup();
 
 
@@ -251,11 +271,11 @@ function challengePopUp(circleNumber, circlesLayers){
 /**
  * Permet de changer la couleur du cercle de la zone de défi quand le joueur est dedans
  * @param {*Indice du tableau contenant les cercles des zones de défi} circleNumber
- * @param {*Tableau contenant les cercles des zones de défi} circlesLayers
+ * @param {*Tableau contenant tous les défis à afficher} challengeDisplayed
  */
-function changeColorCircle(circleNumber, circlesLayers){
+function changeColorCircle(circleNumber, challengeDisplayed){
 
-        circlesLayers[circleNumber].setStyle(styleMarkerIsInside);
+        challengeDisplayed[circleNumber].circle.setStyle(styleMarkerIsInside);
 }
 
 /**
@@ -279,11 +299,10 @@ function checkOrUncheckCheckBoxPopUpChallenge(){
         joueur.marker.closePopup();
     }
 
+    //Si la case est cochée, on va vérifier que le joueur est bien dans une zone de défi, et si oui, on affiche le pop up
     else{
-        //On vérifie que le joueur est dans une zone de défi
-        var inside = markerIsInsideCircle(joueur.marker, circleLayers);
-        challengePopUp(inside["which"], circleLayers);
-
+        var inside = markerIsInsideCircle(joueur.marker, challengeDisplayed);
+        challengePopUp(inside["which"], challengeDisplayed);
     }
 }
 
@@ -313,8 +332,8 @@ function createPolygonsLayers(challengesTab){
  * Ajoute dans un tableau de couches, tous les défis qui ont pour zone géographique un cercle
  * @param {*Tableau contenant tous les défis} challengesTab 
  */
-function createCircleLayers(challengesTab){
-    var circlesLayers = new Array();
+function createChallengeZone(challengesTab){
+    var challengesDisplayed = new Array();
 
     for(var i=0; i < challengesTab.length; i++){
         if(challengesTab[i].circle != null &&(
@@ -322,59 +341,50 @@ function createCircleLayers(challengesTab){
            (checkboxSpring.checked == true && checkboxSpring.checked == challengesTab[i].spring) ||
            (checkboxSummer.checked == true && checkboxSummer.checked == challengesTab[i].summer) ||
            (checkboxAutumn.checked == true && checkboxAutumn.checked == challengesTab[i].autumn))){
-                circlesLayers.push(challengesTab[i].circle); //Si la propriété cercle n'est pas nulle, on l'ajoute au tableau
+                challengesDisplayed.push(challengesTab[i]); //Si la propriété cercle n'est pas nulle, on l'ajoute au tableau
         }
     }
 
-    return circlesLayers;
+    return challengesDisplayed;
 }
 
 /**
  * Regroupement des méthodes indiquant quelles couches de zones de défi doivent être affichées sur la carte
  * @param {*Tableau contenant tous les défis} tableauDeChallenges 
- * @param {*Tableau contenant toutes les couches dessinant les zones de défi} circleLayers 
- * @param {*La carte} map 
+ * @param {*Tableau contenant toutes les couches dessinant les zones de défi} challengeDisplayed
+ * @param {*La carte} map
+ * @param {*Le marqueur du joueur} markerPlayer
  */
-function displayCircleLayers(tableauDeChallenges, circleLayers, map, markerPlayer){
+function displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, markerPlayer){
     //On retire tous les cercles de zone de défi de la carte
-    if(circleLayers.length > 0) removeAllCircleLayersFromMap(circleLayers, map);
+    if(challengeDisplayed.length > 0) removeAllChallengeZoneFromMap(challengeDisplayed, map);
 
     //On recalcule les cercles que l'on doit afficher
-    circleLayers = createCircleLayers(tableauDeChallenges);
+    challengeDisplayed = createChallengeZone(tableauDeChallenges);
 
     //On ajoute les zones de défi à la carte
-    addCircleLayersToMap(circleLayers, map);
+    addChallengeZoneToMap(challengeDisplayed, map);
 
     //On leur attribue une couleur
-    instanciateColorPolygons(circleLayers, markerPlayer);
-    return circleLayers;
+    instanciateColorPolygons(challengeDisplayed, markerPlayer);
+    return challengeDisplayed;
 }
-
-/**
- * Affiche la latitude du joueur dans la textbox du panel "Données et Statistiques"
- * @param {*Marqueur du joueur} markerPlayer 
- */
-function textBoxCoordinatesMainCharacter(markerPlayer){
-    textboxLatMainCharacter.value = markerPlayer.getLatLng().lat;
-    textboxLonMainCharacter.value = markerPlayer.getLatLng().lng;
-}
-
 
 /**
  * Instancie la couleur des polygones au chargement de la page
  * @param {*} polygonsLayers 
  * @param {*} marker
  */
-function instanciateColorPolygons(circlesLayers, marker){
+function instanciateColorPolygons(challengeDisplayed, marker){
 
     //On colore d'abord chaque polygone en rouge
-    for(var i=0; i < circlesLayers.length; i++){
-        circlesLayers[i].setStyle(styleMarkerNotInside);
+    for(var i=0; i < challengeDisplayed.length; i++){
+        challengeDisplayed[i].circle.setStyle(styleMarkerNotInside);
     }
 
     //Ensuite on regarde si le marqueur a été instancié sur un polygone
     //Si oui, on le colorie en bleu
-    markerIsInsideChallengeZone(marker, circlesLayers);
+    markerIsInsideChallengeZone(marker, challengeDisplayed);
 
 }
 
@@ -397,26 +407,26 @@ function inverserCoordonneesTableau(tableau){
 /**
  * Calcule si le marqueur est dans un polygone, et si oui, change sa couleur
  * @param {* Marqueur : objet} marker 
- * @param {* Tableau contenant dans chaque case le cercle de la zone de défi} circlesLayers
+ * @param {* Tableau contenant les défis à afficher} challengeDisplayed
  */
-function markerIsInsideChallengeZone(marker, circlesLayers){
+function markerIsInsideChallengeZone(marker, challengeDisplayed){
 
-    inside = markerIsInsideCircle(marker, circlesLayers);
+    inside = markerIsInsideCircle(marker, challengeDisplayed);
 
     //Si le joueur est dans une zone de défi
     if(inside["isInside"]){
-        changeColorCircle(inside["which"], circlesLayers);
+        changeColorCircle(inside["which"], challengeDisplayed);
         //Si la checkbox pour afficher la description est cochée
-        if(checkboxChallengeDescription.checked) showDescriptionChallenge(inside["which"], circlesLayers);
+        if(checkboxChallengeDescription.checked) showDescriptionChallenge(inside["which"], challengeDisplayed);
 
         //Si la checkbox pour afficher le nom du défi en pop-up est coché
-        if(checkboxPopUpChallenge.checked)challengePopUp(inside["which"], circlesLayers);
+        if(checkboxPopUpChallenge.checked)challengePopUp(inside["which"], challengeDisplayed);
     }
 
     else{
         //Pour chaque zone de défi, on redéfinit la couleur associée à l'absence du joueur dans une zone de défi
-        for(var i = 0; i < circlesLayers.length; i++){
-            circlesLayers[i].setStyle(styleMarkerNotInside);
+        for(var i = 0; i < challengeDisplayed.length; i++){
+            challengeDisplayed[i].circle.setStyle(styleMarkerNotInside);
             joueur.marker.closePopup();
         }
     }
@@ -427,16 +437,16 @@ function markerIsInsideChallengeZone(marker, circlesLayers){
 /**
  * Teste si le personnage est à l'intérieur d'une zone de défi en cercle ou non
  * @param {*Marqueur représentant le personnage} marker 
- * @param {*Tableau contenant les couches des zones de défi circulaire} circlesLayers 
+ * @param {*Tableau contenant tous les défis à afficher} challengeDisplayed
  */
-function markerIsInsideCircle(marker, circlesLayers){
+function markerIsInsideCircle(marker, challengeDisplayed){
     var inside = {
                 isInside : false,
                 which : -1
             };
 
-    for(var i = 0; i < circlesLayers.length; i++){
-        if(marker.getLatLng().distanceTo(circlesLayers[i].getLatLng())<circlesLayers[i].getRadius()){
+    for(var i = 0; i < challengeDisplayed.length; i++){
+        if(marker.getLatLng().distanceTo(challengeDisplayed[i].circle.getLatLng())<challengeDisplayed[i].circle.getRadius()){
             inside = {
                 isInside : true,
                 which : i
@@ -523,12 +533,12 @@ function playerIsNearAnOtherPlayer(player, playersTable){
 
 /**
  * Retire toutes les couches qui dessinent les cercles des zones de défi
- * @param {* Tableau contenant toutes les couches qui dessinent les cercles des zones de défi} circleLayers 
+ * @param {* Tableau contenant tous les défis à afficher} challengeDisplayed
  * @param {* La carte} map 
  */
-function removeAllCircleLayersFromMap(circleLayers, map){
-    for(var i=0; i < circleLayers.length; i++){
-        map.removeLayer(circleLayers[i]);
+function removeAllChallengeZoneFromMap(challengeDisplayed, map){
+    for(var i=0; i < challengeDisplayed.length; i++){
+        map.removeLayer(challengeDisplayed[i].circle);
     }
 }
 
@@ -563,11 +573,11 @@ function removePlayersMarkerFromMap(playersTable, map){
 
 /**
  * Affiche la description du défi quand le joueur est dans une zone de défi
- * @param {*Position de la zone de défi dans le tableau des couches de défi} circleNumber 
- * @param {*Tableau contenant les couches des défis} circlesLayers 
+ * @param {*Position de la zone de défi dans le tableau des couches de défi} circleNumber
+ * @param {*Tableau contenant les défis à afficher} challengeDisplayed 
  */
-function showDescriptionChallenge(circleNumber, circlesLayers){
-    messageBoxDescriptionChallenge.show(tableauDeChallenges[circleNumber].description);
+function showDescriptionChallenge(circleNumber, challengeDisplayed){
+    messageBoxDescriptionChallenge.show(challengeDisplayed[circleNumber].description);
 }
 
 function showPlayerNearYou(nearPlayers){
@@ -594,6 +604,15 @@ function showPlayerNearYou(nearPlayers){
     } 
 
     return message;
+}
+
+/**
+ * Affiche la latitude du joueur dans la textbox du panel "Données et Statistiques"
+ * @param {*Marqueur du joueur} markerPlayer 
+ */
+function textBoxCoordinatesMainCharacter(markerPlayer){
+    textboxLatMainCharacter.value = markerPlayer.getLatLng().lat;
+    textboxLonMainCharacter.value = markerPlayer.getLatLng().lng;
 }
 
 

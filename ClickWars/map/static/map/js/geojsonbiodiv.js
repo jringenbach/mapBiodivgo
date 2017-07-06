@@ -16,6 +16,13 @@ var styleMarkerNotInside = {
             fillOpacity: 0.7
         };
 
+var agdeCercle = L.circle([43.30919109985686,3.46893310546875], {
+    color : 'red',
+    fillColor : '#f03',
+    fillOpacity: 0.5,
+    radius: 1200
+});
+
 var beziersCercle = L.circle([43.34240849996516, 3.2141876220703125], {
     color : 'red',
     fillColor : '#f03',
@@ -23,11 +30,25 @@ var beziersCercle = L.circle([43.34240849996516, 3.2141876220703125], {
     radius: 3000
 });
 
+var castrieCercle = L.circle([43.67904605152201, 3.985977172851562],{
+    color : 'red',
+    fillColor : '#f03',
+    fillOpacity: 0.5,
+    radius: 1250
+});
+
 var juvignacCercle = L.circle([43.61414318728638, 3.80950927734375], {
     color : 'red',
     fillColor : '#f03',
     fillOpacity: 0.5,
     radius: 1250
+});
+
+var lunelCercle = L.circle([43.67432820783561,4.1342926025390625], {
+    color : 'red',
+    fillColor : '#f03',
+    fillOpacity: 0.5,
+    radius: 2500 
 });
 
 var mirevalCercle = L.circle([43.50772499687011, 3.8005828857421875], {

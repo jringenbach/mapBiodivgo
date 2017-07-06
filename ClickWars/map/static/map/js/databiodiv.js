@@ -1,8 +1,56 @@
 /*-----------------------------------------------------------------------------------------------
+                                        INSTANCIATION DES ICONES POUR LES TYPES DE DEFIS
+-------------------------------------------------------------------------------------------------*/
+
+var animalIcon = L.icon({
+    iconUrl: '../static/map/img/animal.png',
+    iconSize:     [36, 36], // size of the icon
+    iconAnchor:   [18, 36], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
+});
+
+var flowerIcon = L.icon({
+    iconUrl: '../static/map/img/flower.png',
+    iconSize:     [36, 36], // size of the icon
+    iconAnchor:   [18, 36], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
+});
+
+var insectIcon = L.icon({
+    iconUrl: '../static/map/img/insect.png',
+    iconSize:     [36, 36], // size of the icon
+    iconAnchor:   [18, 36], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
+});
+
+//Création d'un marqueur que l'on associe à l'icône du type de défi
+var markerAnimal = L.marker([0.0 , 0.0], {icon: animalIcon});
+var markerFlower = L.marker([0.0, 0.0], {icon: flowerIcon});
+var markerInsect = L.marker([0.0, 0.0], {icon: insectIcon});
+
+/*-----------------------------------------------------------------------------------------------
+                                        INSTANCIATION DES TYPES DE DEFIS
+-------------------------------------------------------------------------------------------------*/
+var insectType = new typeChallenge(1, "insecte", markerFlower);
+var flowerType = new typeChallenge(2, "flore", markerFlower);
+var animalType = new typeChallenge(3, "animal", markerAnimal);
+
+/*-----------------------------------------------------------------------------------------------
                                         INSTANCIATION DES CHALLENGES
 -------------------------------------------------------------------------------------------------*/
 
 /*Instanciation : nom, description, circle, autumn, spring, summer, winter  */
+var agdeChallenge = new Challenge(
+    "Agde la magnifique",
+    "Trouvez le pelican d'Agde",
+    agdeCercle,
+    true,
+    false,
+    false,
+    false,
+    animalType
+);
+
 var beziersChallenge = new Challenge(
     "Y'a de la vie à Béziers?",
     "Trouve un semblant de vie à Béziers",
@@ -10,7 +58,19 @@ var beziersChallenge = new Challenge(
     true,
     false,
     false,
-    true
+    true,
+    insectType
+);
+
+var castrieChallenge = new Challenge(
+    "Enfer à Castrie",
+    "La veuve noire se planque à Castrie. Sauve qui peut!",
+    castrieCercle,
+    false,
+    false,
+    true,
+    false,
+    insectType
 );
 
 var juvignacChallenge = new Challenge(
@@ -20,7 +80,18 @@ var juvignacChallenge = new Challenge(
     true,
     false,
     false,
-    true
+    true,
+    flowerType
+);
+
+var lunelChallenge = new Challenge(
+    "Folle Lunel",
+    "Le loup de lunel",
+    lunelCercle,
+    false,
+    true,
+    false,
+    false
 );
 
 var mirevalChallenge = new Challenge(
@@ -30,7 +101,8 @@ var mirevalChallenge = new Challenge(
     true,
     true,
     true,
-    false
+    false,
+    insectType
 );
 
 var montpellierChallenge = new Challenge(
@@ -40,7 +112,8 @@ var montpellierChallenge = new Challenge(
     true,
     true,
     true,
-    true
+    true,
+    animalType
 );
 
 var palavasChallenge = new Challenge(
@@ -60,7 +133,8 @@ var perolsChallenge = new Challenge(
     false,
     true,
     true,
-    false
+    false,
+    flowerType
 );
 
 var pignanChallenge = new Challenge(
@@ -70,7 +144,8 @@ var pignanChallenge = new Challenge(
     false,
     true,
     true,
-    true
+    true,
+    flowerType
 );
 
 var seteChallenge = new Challenge(
@@ -80,7 +155,8 @@ var seteChallenge = new Challenge(
     true,
     false,
     true,
-    false
+    false,
+    flowerType
 );
 
 var saintJeanDeVedasChallenge = new Challenge(
@@ -90,7 +166,8 @@ var saintJeanDeVedasChallenge = new Challenge(
     false,
     true,
     true,
-    false
+    false,
+    insectType
 );
 
 var villeneuveMagueloneChallenge = new Challenge(
@@ -100,12 +177,18 @@ var villeneuveMagueloneChallenge = new Challenge(
     true,
     true,
     true,
-    true
+    true,
+    insectType
 );
 
-var tableauDeChallenges = new Array();
+console.log(tableauDeChallenges);
+
+//Ancienne méthode où je poussais les éléments dans le tableau un à un
+/*
+tableauDeChallenges.push(agdeChallenge);
 tableauDeChallenges.push(beziersChallenge);
 tableauDeChallenges.push(juvignacChallenge);
+tableauDeChallenges.push(lunelChallenge);
 tableauDeChallenges.push(mirevalChallenge);
 tableauDeChallenges.push(montpellierChallenge);
 tableauDeChallenges.push(palavasChallenge);
@@ -113,7 +196,7 @@ tableauDeChallenges.push(perolsChallenge);
 tableauDeChallenges.push(pignanChallenge);
 tableauDeChallenges.push(saintJeanDeVedasChallenge);
 tableauDeChallenges.push(seteChallenge);
-tableauDeChallenges.push(villeneuveMagueloneChallenge);
+tableauDeChallenges.push(villeneuveMagueloneChallenge);*/
 
 /*-----------------------------------------------------------------------------------------------
                                         INSTANCIATION DES JOUEURS
@@ -200,3 +283,4 @@ checkboxArray.push(checkboxAutumn);
 //Instanciation des input : text
 var textboxLatMainCharacter = document.getElementById("textBoxLatMainCharacter");
 var textboxLonMainCharacter = document.getElementById("textBoxLonMainCharacter");
+var textboxVitMainCharacter = document.getElementById("textBoxVitMainCharacter");

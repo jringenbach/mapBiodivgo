@@ -1,3 +1,5 @@
+var tableauDeChallenges = new Array();
+
 /**
  * Classe représentant un joueur
  * @param {*Pseudo du joueur} pseudo 
@@ -21,7 +23,7 @@ function Player(pseudo, marker, icon){
  * @param {*Booléen valant true si le défi est réalisable en hiver} winter
  * @param {*ZBooléen valant true si le défi est réalisable l'été} summer 
  */
-function Challenge(challengeName, description, circle, autumn, spring, summer, winter){
+function Challenge(challengeName, description, circle, autumn, spring, summer, winter, typeChallenge){
     this.challengeName = challengeName;
     this.description = description;
     this.circle = circle;
@@ -30,6 +32,8 @@ function Challenge(challengeName, description, circle, autumn, spring, summer, w
     this.autumn = autumn;
     this.winter = winter;
     this.summer = summer;
+    this.typeChallenge = typeChallenge;
+    tableauDeChallenges.push(this);
     
     /**
      * Transforme un geoJSON en un tableau contenant les tableaux de coordonnées de chaque polygone
@@ -48,6 +52,17 @@ function Challenge(challengeName, description, circle, autumn, spring, summer, w
     };
 
 
+}
+
+/**
+ * Type de défis
+ * @param {*Identifiant du type de défi} idType 
+ * @param {*Nom du type de défi} typeName 
+ */
+function typeChallenge(idType, typeName, marker){
+    this.idType = idType;
+    this.typeName = typeName;
+    this.marker = marker;
 }
 
 /**
