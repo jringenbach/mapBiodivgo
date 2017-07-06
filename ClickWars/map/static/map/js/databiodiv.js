@@ -163,10 +163,15 @@ playersTable.push(gerald);
 playersTable.push(asterix);
 playersTable.push(luffy);
 
-/*-----------------------------------------------------------------------------------------------
-                                        INSTANCIATION DES CHECKBOX
--------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------
+                                        INSTANCIATION DES ELEMENTS DU DOM : CHECKBOX, INPUT, ETC...
+--------------------------------------------------------------------------------------------------------------*/
 
+//Instanciation des boutons
+var buttonToutCocher = document.getElementById("toutCocherButton");
+var buttonToutDecocher = document.getElementById("toutDecocherButton");
+
+//-------------
 
 //On instance les checkbox
 //checkbox a coché si le joueur veut voir les joueurs proches de lui
@@ -179,10 +184,6 @@ var checkboxSpring = document.getElementById("springCheckBox");
 var checkboxSummer = document.getElementById("summerCheckBox");
 var checkboxAutumn = document.getElementById("autumnCheckBox");
 
-//Instanciation des boutons
-var buttonToutCocher = document.getElementById("toutCocherButton");
-var buttonToutDecocher = document.getElementById("toutDecocherButton");
-
 //Ajout des checkbox dans un tableau
 var checkboxArray = new Array();
 checkboxArray.push(checkboxNearestPlayers);
@@ -194,3 +195,8 @@ checkboxArray.push(checkboxSpring);
 checkboxArray.push(checkboxSummer);
 checkboxArray.push(checkboxAutumn);
 
+//-------------
+
+//Instanciation des input : text
+var textboxLatMainCharacter = document.getElementById("textBoxLatMainCharacter");
+var textboxLonMainCharacter = document.getElementById("textBoxLonMainCharacter");

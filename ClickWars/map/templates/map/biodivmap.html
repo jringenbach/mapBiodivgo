@@ -62,10 +62,6 @@
 				</label>				
 			</div>
 
-			<!-- Tout cocher/décocher -->
-			<button class="buttonCocheClass" type="button" id="toutCocherButton">Tout cocher</button>
-			<button class="buttonCocheClass" type="button" id="toutDecocherButton">Tout décocher</button>
-
 		</div> <!--Fin du panel optionsDiv -->
 
 		<div class="panelDivClass" id="seasonDivId">
@@ -103,12 +99,31 @@
 					</label>				
 				</div>
 
+		</div> <!--Fin panel des saisons -->
+
+		<div class="panelDivClass" id="panelButtonDiv">
+			<!-- Tout cocher/décocher -->
+			<button class="buttonCocheClass" type="button" id="toutCocherButton">Tout cocher</button>
+			<button class="buttonCocheClass" type="button" id="toutDecocherButton">Tout décocher</button>
 		</div>
 
 	</div> <!-- Fin du rightDiv -->
 
 	<div id="statistiquesDiv">
 		<h2 class="h2PanelClass">Données et statistiques </h2>
+
+		<!-- Première ligne de statistiques et de données -->
+		<div id="statsLigne1Div">
+			<div class="wrapper">
+				<h2 class="h2Stat">Main Character</h2>
+			</div>
+
+			<label class="labelStat">lat : </label>
+			<input class="textBoxStatClass" id="textBoxLatMainCharacter" type="text" name="latitudeMainCharacter" readonly>
+
+			<label class="labelStat">lon : </label>
+			<input class="textBoxStatClass" id="textBoxLonMainCharacter" type="text" name="latitudeMainCharacter" readonly>
+		</div>
 	</div>
 
 

@@ -24,6 +24,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/foxof/cj4jxxmvx7gwp2rs5571l8z3o/ti
 
 //On ajoute le marker du joueur à la carte, ainsi que celui de tous les autres joueurs
 joueur.marker.addTo(map);
+textBoxCoordinatesMainCharacter(joueur.marker);
 removeOrAddPlayersMarker(playersTable, map);
 
 var circleLayers = new Array();
@@ -38,31 +39,29 @@ document.addEventListener('keydown', function(e){
     var ampleurDuDeplacement = 0.001;
     var insideAChallengeZone;
 
-    console.log(e.keyCode);
-
     //Si la touche appuyée concerne un déplacement
     if(e.keyCode == 68 || e.keyCode == 90 || e.keyCode == 83 || e.keyCode == 81){
         switch(e.keyCode){
 
-            //Left keyTouch
+            //Left - Q key
             case 81:
                 latitude = joueur.marker.getLatLng().lat;
                 longitude = joueur.marker.getLatLng().lng-Math.abs(ampleurDuDeplacement);
                 break;
             
-            //Up keyTouch
+            //Up - Z key
             case 90:
                 latitude = joueur.marker.getLatLng().lat+Math.abs(ampleurDuDeplacement);
                 longitude = joueur.marker.getLatLng().lng;
             break;
 
-            //Right keyTouch
+            //Right - D key
             case 68:
                 latitude = joueur.marker.getLatLng().lat;
                 longitude = joueur.marker.getLatLng().lng+Math.abs(ampleurDuDeplacement);
                 break;
 
-            //Down keyTouch
+            //Down - S key
             case 83:
                 latitude = joueur.marker.getLatLng().lat-Math.abs(ampleurDuDeplacement);
                 longitude = joueur.marker.getLatLng().lng;
@@ -73,6 +72,7 @@ document.addEventListener('keydown', function(e){
         //On modifie la position du marqueur, on teste si le joueur est dans une zone de défi, si il y'a des joueurs autour
         //de lui
         joueur.marker.setLatLng([latitude, longitude]);
+        textBoxCoordinatesMainCharacter(joueur.marker);
         insideAChallengeZone = markerIsInsideChallengeZone(joueur.marker, circleLayers);
 
         //si le joueur a coché la checkbox pour voir les joueurs les plus proches, alors on calcule la distance des joueurs les plus proches
@@ -336,13 +336,27 @@ function createCircleLayers(challengesTab){
  * @param {*La carte} map 
  */
 function displayCircleLayers(tableauDeChallenges, circleLayers, map, markerPlayer){
-    console.log("display : "+circleLayers.length);
+    //On retire tous les cercles de zone de défi de la carte
     if(circleLayers.length > 0) removeAllCircleLayersFromMap(circleLayers, map);
+
+    //On recalcule les cercles que l'on doit afficher
     circleLayers = createCircleLayers(tableauDeChallenges);
-    console.log(circleLayers);
+
+    //On ajoute les zones de défi à la carte
     addCircleLayersToMap(circleLayers, map);
+
+    //On leur attribue une couleur
     instanciateColorPolygons(circleLayers, markerPlayer);
     return circleLayers;
+}
+
+/**
+ * Affiche la latitude du joueur dans la textbox du panel "Données et Statistiques"
+ * @param {*Marqueur du joueur} markerPlayer 
+ */
+function textBoxCoordinatesMainCharacter(markerPlayer){
+    textboxLatMainCharacter.value = markerPlayer.getLatLng().lat;
+    textboxLonMainCharacter.value = markerPlayer.getLatLng().lng;
 }
 
 
@@ -515,7 +529,6 @@ function playerIsNearAnOtherPlayer(player, playersTable){
 function removeAllCircleLayersFromMap(circleLayers, map){
     for(var i=0; i < circleLayers.length; i++){
         map.removeLayer(circleLayers[i]);
-        console.log("remove circles i : "+i);
     }
 }
 

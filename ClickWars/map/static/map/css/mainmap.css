@@ -25,28 +25,6 @@ body{
     width: 100%;
 }
 
-header{
-    background-color : #015651;
-}
-
-html{
-    background-color: #015651;
-    height: 100%;
-    width: 100%;
-}
-
-.labelOptionsClass{
-    color: white;
-    font-size: 13px;
-}
-
-/* Div contenant la carte leaflet*/
-#mapDiv{
-    float: left;
-    height: 95%;
-    width: 80%;
-}
-
 /*Titre du bloc div des options */
 .h2PanelClass{
     background-color : #0a693f;
@@ -62,6 +40,54 @@ html{
     width : 99%;
 }
 
+.h2Stat{
+    background-color : #0a693f;
+    border : 1px solid green;
+    border-radius: 10px;
+    color : white;
+    font-weight: bold;
+    font-size : 16px;
+    display : inline-block;
+    margin-top : 2px;
+    text-align : center;
+    width : 20%;
+}
+
+header{
+    background-color : #015651;
+}
+
+html{
+    background-color: #015651;
+    height: 100%;
+    width: 100%;
+}
+
+/*Label indiquant la statistique affichée */
+.labelStat{
+    color : white;
+    margin-left : 2%;
+}
+
+/*Label qui indique la fonction d'une checkbox */
+.labelOptionsClass{
+    color: white;
+    font-size: 13px;
+}
+
+/* Div contenant la carte leaflet*/
+#mapDiv{
+    float: left;
+    height: 95%;
+    width: 80%;
+}
+
+/*Panel contenant les boutons permettant de cocher et décocher toutes les checkbox */
+#panelButtonDiv{
+    margin-top : 5%;
+}
+
+/*Panel contenant plusieurs options modifiables : options, saisons ... */
 .panelDivClass{
     background-color : #2B9C6A;
     border : 1px solid #FAF8FB;
@@ -92,6 +118,16 @@ html{
     width : 99%;
 }
 
+/*textbox affichant la latitude du personnage principal */
+#textBoxLatMainCharacter{
+    width : 140px;
+}
+
+/*textbox affichant la longitude du personnage principal */
+#textBoxLonMainCharacter{
+    width : 140px;
+}
+
 /*Design spécifique au bouton cochant toutes les checkbox */
 #toutCocherButton{
     margin-top : 5%;
@@ -100,4 +136,9 @@ html{
 /*Design spécifique au bouton décochant toutes les checkbox */
 #toutDecocherButton{
     margin-bottom : 5%;
+}
+
+/*Permet de centrer les titres des sous-sections de "Données et Statistiques" */
+.wrapper{
+    text-align : center;
 }
