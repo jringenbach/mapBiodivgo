@@ -22,7 +22,7 @@ function Player(pseudo, marker, icon){
  * @param {*Booléen valant true si le défi est réalisable en automne} autumn
  * @param {*Booléen valant true si le défi est réalisable en hiver} winter
  * @param {*Booléen valant true si le défi est réalisable l'été} summer
- * @param {*Type du challenge instancié} typeChallenge
+ * @param {*T} typeChallenge
  */
 function Challenge(challengeName, description, circle, autumn, spring, summer, winter, typeChallenge){
     this.challengeName = challengeName;

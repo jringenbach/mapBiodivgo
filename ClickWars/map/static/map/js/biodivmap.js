@@ -92,6 +92,25 @@ document.addEventListener('keydown', function(e){
 });
 
 /**
+ * Coche toutes les checkbox du menu des options
+ */
+buttonToutCocher.addEventListener("click", function(e){
+    checkOrUncheckAllCheckBox(checkboxArray, true);
+    removeOrAddPlayersMarker(playersTable, map);
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
+});
+
+/**
+ * Décoche toutes les checkbox du menu des options
+ */
+buttonToutDecocher.addEventListener("click", function(e){
+    checkOrUncheckAllCheckBox(checkboxArray, false);
+    removeOrAddPlayersMarker(playersTable, map);
+    checkOrUncheckCheckBoxPopUpChallenge();
+    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
+});
+
+/**
  * Evènement lié à la checkbox affichant les joueurs les plus proches.
  * On supprime les joueurs de la carte quand elle est décochée.
  */
@@ -136,23 +155,19 @@ checkboxAutumn.addEventListener("change", function(e){
 });
 
 /**
- * Coche toutes les checkbox du menu des options
+ * Evènement se déclenchant quand le niveau de zoom change. On va redimensionner les icones des types de défi.
  */
-buttonToutCocher.addEventListener("click", function(e){
-    checkOrUncheckAllCheckBox(checkboxArray, true);
-    removeOrAddPlayersMarker(playersTable, map);
-    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
-});
+map.addEventListener("zoomstart", function(e){
+    var icon;
+    console.log(map.getZoom());
+    for(var i = 0; i < challengeDisplayed.length; i++){
+        map.removeLayer(challengeDisplayed[i].marker);
+        icon = getIconDependingOnZoomLevel(map.getZoom(), challengeDisplayed[i].typeChallenge.typeName);
+        challengeDisplayed[i].marker.setIcon(icon);
+        challengeDisplayed[i].marker.addTo(map);
+    }
 
-/**
- * Décoche toutes les checkbox du menu des options
- */
-buttonToutDecocher.addEventListener("click", function(e){
-    checkOrUncheckAllCheckBox(checkboxArray, false);
-    removeOrAddPlayersMarker(playersTable, map);
-    checkOrUncheckCheckBoxPopUpChallenge();
-    challengeDisplayed = displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, joueur.marker);
-})
+});
 
 /**
  * textbox permettant de modifier la vitesse du personnage principal sur la carte
@@ -382,6 +397,73 @@ function displayChallengeZone(tableauDeChallenges, challengeDisplayed, map, mark
     //On leur attribue une couleur
     instanciateColorPolygons(challengeDisplayed, markerPlayer);
     return challengeDisplayed;
+}
+
+/**
+ * Renvoie l'url de l'image à afficher pour l'icone
+ * @param {*Type du challenge} challengeType 
+ */
+function getIconDependingOnChallengeType(challengeType){
+    var iconUrl;
+
+    switch(challengeType){
+        case "insecte":
+            iconUrl = '../static/map/img/insect.png'
+        break;
+
+        case "animal":
+            iconUrl = '../static/map/img/animal.png'
+        break;
+
+        case "flore":
+            iconUrl = '../static/map/img/flower.png'
+        break;
+    }
+
+    return iconUrl;
+}
+
+/**
+ * Renvoie un icone selon le niveau de zoom sur la carte
+ * @param {*Niveau du zoom} zoomlevel
+ * @param {*Type du challenge} challengeType
+ */
+function getIconDependingOnZoomLevel(zoomlevel, challengeType){
+    var icon, iconUrl, anchorIcon;
+    var sizeIcon = new Array();
+
+    //Suivant le niveau de zoom, l'icone aura une taille et un point d'ancrage différent
+    if(zoomlevel >= 13){
+        sizeIcon = [36,36];
+        anchorIcon = [18,36];
+    } 
+
+    else if(zoomlevel >= 10){
+        sizeIcon = [18,18];
+        anchorIcon = [9,16];
+    } 
+
+    else if(zoomlevel >= 5){
+        sizeIcon = [8,8];
+        anchorIcon = [4, 8];
+    } 
+
+    else{
+        sizeIcon = [3,3];
+        anchorIcon = [1, 0];
+    } 
+
+    //Suivant le type du défi, l'icone aura une image différente
+    iconUrl = getIconDependingOnChallengeType(challengeType);
+
+    icon = L.icon({
+                iconUrl: iconUrl,
+                iconSize: sizeIcon, // size of the icon
+                iconAnchor: anchorIcon, // point of the icon which will correspond to marker's location
+                popupAnchor:  [-76, -10] // point from which the popup should open relative to the iconAnchor
+    });
+
+    return icon;
 }
 
 /**
