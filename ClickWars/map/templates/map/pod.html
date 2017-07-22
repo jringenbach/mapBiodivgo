@@ -4,11 +4,13 @@
 
 {% block stylesheet %}
 	<link rel="stylesheet" type="text/css" href="{% static 'map/css/pod.css' %}"/>
-	<link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
+	<script src="{% static 'map/js/turf.min.js' %}"></script>
+ 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+  	integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+   	crossorigin=""/>
+	<script type="text/javascript" src="{% static 'map/ol2-master/lib/OpenLayers.js' %}" />
 	<script type="text/javascript" src="{% static 'js/leaflet/leaflet.js' %}"></script>
 
-	<!--Plugin permettant de créer un tiles raster layer qui a la forme d'un polygone -->
-	<script type="text/javascript" src="{% static 'js/BoundaryCanvas.js' %}"></script>
 {% endblock %}
 
 {% block title %}Map : ClickWars {% endblock %}
@@ -28,8 +30,11 @@
 {% endblock %}
 
 {% block script %}
+
 	<!--Javascript executant le code élaborant les spécificités de la carte -->
-	<script type="text/javascript" src="{% static 'map/js/pod.js' %}"></script>
+	<script type="text/javascript" src="{% static 'map/js/LineStringEneo.js' %}"></script>
+	<script type="text/javascript" src="{% static 'map/js/LineStringData.js' %}"></script>
+	<script type="text/javascript" src="{% static 'map/js/linestring.js' %}"></script>
 
 {% endblock %}
 

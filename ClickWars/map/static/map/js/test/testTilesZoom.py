@@ -15,4 +15,6 @@ with open("polygon.geojson") as json_data:
 geometry = polygone['features'][0]['geometry']
 
 #On appelle la méthode de cascade nous donnant toutes les tuiles
-cascade.tilesForEveryZoom(geometry)
+tileList = list()
+tileList = cascade.tilesForEveryZoom(geometry)
+print(tileList.length)

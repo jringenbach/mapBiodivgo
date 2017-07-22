@@ -402,20 +402,20 @@ function tilesForEveryZoom(polygon){
     var tileList = new Array();
     //Niveau de zoom : 12
     var limitszoom12 = {
-            min_zoom: 12,
-            max_zoom: 12
-        };
-
-    //Niveau de zoom : 14
-    var limitszoom14 = {
             min_zoom: 14,
             max_zoom: 14
         };
 
-    //Niveau de zoom : 16
-    var limitszoom16 = {
+    //Niveau de zoom : 14
+    var limitszoom14 = {
             min_zoom: 16,
             max_zoom: 16
+        };
+
+    //Niveau de zoom : 16
+    var limitszoom16 = {
+            min_zoom: 18,
+            max_zoom: 18
         };
 
     //On récupère l'adresse url des tuiles pour les 3 niveaux de zoom
